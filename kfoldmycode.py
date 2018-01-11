@@ -61,7 +61,7 @@ variance = accuracies.std()
 
 
 #Tuning the ANN
-#kernal restarted - the part above not run
+#kernal restarted - the part above not run- the following is the second part
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 from keras.models import Sequential
@@ -74,14 +74,14 @@ def build_classifier(optimizer):
     classifier.add(Dense(units=1, kernel_initializer="uniform", activation="sigmoid", input_dim=11))
     classifier.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'] )
     return classifier
-#we need to initialize(?) a kerasclassifier class object
+#we need to create an object of kerasclassifier class
 #classifier is local inside build_classifier, we can initialize a new global
 classifier = KerasClassifier(build_fn = build_classifier)
 #dictionary of hyper parameters
 parameters = {'batch_size' : [25,32],
               'epochs' : [100,500],
               'optimizer' : ['adam', 'rmsprop']}
-#gotta learn wtf 'accuracy' is
+
 grid_search = GridSearchCV(estimator = classifier,
                            param_grid = parameters,
                            scoring = 'accuracy',
